@@ -1,3 +1,13 @@
-from django.db import models
+from google.appengine.ext import db
 
-# Create your models here.
+class URLList(db.Model):
+    url_hash = db.StringProperty()
+    urls = db.StringListProperty()
+    created = db.DateTimeProperty(auto_now_add=True)
+    
+class CachedURL(db.Model):
+    url = db.StringProperty()
+    title = db.StringProperty()
+    papers = db.StringListProperty()
+    created = db.DateTimeProperty(auto_now=True)
+    

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}CiteWeb: Import URLs{% endblock %}
+
+{% block content %}
+
+<form method="post" action="">
+<table>{{ f }}</table>
+<input type="submit" />
+</form>
+
+{% if url_hash %}
+
+<a href="../view/{{ url_hash }}">Show citations</a>
+
+{% endif %}
+
+{{ info }}
+
+{% endblock %}
+
