@@ -4,11 +4,28 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>{% block title %}CiteWeb{% endblock %}
-   </title>
+	<title>{% block title %}CiteWeb{% endblock %}</title>
+	
+	<style>
+	   .citation { color: #777; }
+	   a { text-decoration: none; }
+	   a:hover { text-decoration: underline; }
+	   .paper { margin-top: 2em; }
+	   .citing { margin-left: 2em;}
+	</style>
 </head>
 <body>
+
+{% if error_message %}
+
+   {{ error_message }}
+
+{% else %}
+
    {% block content %}
    {% endblock %}
+
+{% endif %}
+
 </body>
 </html>
