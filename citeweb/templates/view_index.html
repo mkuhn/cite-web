@@ -2,7 +2,15 @@
 
 {% block title %}CiteWeb: Your cited papers{% endblock %}
 
+{% block head %}
+<link rel="alternate" type="application/rss+xml" title="RSS feed of your citations" href="{{ rss_url }}">
+{% endblock %}
+
 {% block content %}
+
+
+
+This week, the papers you follow have been cited by the following papers (<a href="{{ rss_url }}">RSS</a>, <a href="/import/">change papers</a>):
 
 {% for paper in papers %}
 <div class="paper">

@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from citeweb.citeimport import models
 
 from google.appengine.api import urlfetch
+from google.appengine.api import users
 
 import re
 import hashlib
@@ -70,12 +71,14 @@ def papers_to_rss(request, url_hash, papers):
 <ul><li>%(citing_list)s</li></ul>
 <p>Search: <a href="http://scholar.google.com/scholar?q=%(search_param)s">Google Scholar</a> &ndash; <a href="%(wos_url)s">WOS</a> &ndash; <a href="http://www.google.com/search?q=%(search_param)s">Google</a><br>
 </p>""" % paper
+
+        url = "http://scholar.google.com/scholar?q=%s" % paper["scholar_param"]
         
         return PyRSS2Gen.RSSItem(
             title = paper["title"],
             description = html,
-            link = "http://scholar.google.com/scholar?q=%s" % paper["search_param"],
-            # guid = PyRSS2Gen.Guid(paper["wos_url"]),
+            link = url,
+            guid = PyRSS2Gen.Guid(url),
             pubDate = now
         )
         
@@ -97,7 +100,33 @@ def papers_to_rss(request, url_hash, papers):
         
     
     
-def index(request, url_hash, rss = False):
+def index(request, stable = False, url_hash = "", rss = False):
+
+    rss_url = "rss.xml"
+
+    # if we come via a stable URL, get the URL hash from the stored users
+    if stable:
+        url_hash = models.UserPrefs.all().filter("user_hash = ", url_hash).get().url_hash
+
+    user = users.get_current_user()
+    if user:
+        nickname = user.nickname()
+        logout_url = users.create_logout_url("/")
+
+    # if there are no parameters, see if the user is logged in and has an associated URL
+    if not url_hash:
+        userprefs = models.UserPrefs.all().filter("user = ", user).get()
+        
+        if userprefs:
+            url_hash = userprefs.url_hash
+            rss_url = "/view/stable/%s/rss.xml" % userprefs.user_hash
+        
+    # okay, we can't find a URL hash: tell the user to import something
+    if not url_hash:
+        from citeweb.citeimport import views
+        return views.index(request)
+
+
 
     url_list = models.URLList.all().filter("url_hash = ", url_hash).get()
     
@@ -132,6 +161,8 @@ def index(request, url_hash, rss = False):
             search_param = "%s %s" % (authors[:authors.index(",")], short_title)
             scholar_param = ("allintitle%%3A %s author%%3A%s" % (short_title, authors[:authors.index(",")], )).replace(" ", "+")
             papers.append({ "wos_url" : wos_url, "scholar_param" : scholar_param, "search_param" : search_param, "title" : title, "authors" : authors, "citation" : citation, "citing" : citing })
+    
+    
         
     if rss:
         return HttpResponse(papers_to_rss(request, url_hash, papers), mimetype="application/rss+xml")
