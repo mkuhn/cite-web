@@ -18,7 +18,7 @@ from collections import defaultdict
 import datetime
 
 from BeautifulSoup import BeautifulStoneSoup
-# import PyRSS2Gen
+import PyRSS2Gen
 
 import logging
 
@@ -66,46 +66,40 @@ def cache_url(url):
 
 def papers_to_rss(request, url_hash, papers):
  
-# TODO   
-#     now = datetime.datetime.now()
-#     
-#     def rss_for_paper(paper):
-#         
-#         paper["citing_list"] = "</li><li>".join(paper["citing"])
-#          
-#         html = """
-# <p>%(authors)s<br/>%(citation)s</p>
-# <ul><li>%(citing_list)s</li></ul>
-# <p>Search: <a href="http://scholar.google.com/scholar?q=%(search_param)s">Google Scholar</a> &ndash; <a href="%(wos_url)s">WOS</a> &ndash; <a href="http://www.google.com/search?q=%(search_param)s">Google</a><br>
-# </p>""" % paper
-# 
-#         url = "http://scholar.google.com/scholar?q=%s" % paper["scholar_param"]
-#         
-#         return PyRSS2Gen.RSSItem(
-#             title = paper["title"],
-#             description = html,
-#             link = url,
-#             guid = PyRSS2Gen.Guid(url),
-#             pubDate = now
-#         )
-#         
-#     
-#     logging.info(str(request.META))
-#     
-#     rss = PyRSS2Gen.RSS2(
-#         title = "CiteWeb citation feed",
-#         link = "http://%s/view/%s/" % (request.META["SERVER_NAME"], url_hash),
-#         description = "CiteWeb aggregates your ISI Web Of Science citation alerts.",
-# 
-#         lastBuildDate = now,
-# 
-#         items = [ rss_for_paper(paper) for paper in papers ]
-#     )
-# 
-#     return rss.to_xml()
-
-    pass
+    now = datetime.datetime.now()
+    
+    def rss_for_paper(paper):
         
+        paper["citing_list"] = "</li><li>".join(paper["citing"])
+         
+        html = """
+<p>%(authors)s<br/>%(citation)s</p>
+<ul><li>%(citing_list)s</li></ul>
+<p>Search: <a href="http://scholar.google.com/scholar?q=%(search_param)s">Google Scholar</a> &ndash; <a href="%(wos_url)s">WOS</a> &ndash; <a href="http://www.google.com/search?q=%(search_param)s">Google</a><br>
+</p>""" % paper
+
+        url = "http://scholar.google.com/scholar?q=%s" % paper["scholar_param"]
+        
+        return PyRSS2Gen.RSSItem(
+            title = paper["title"],
+            description = html,
+            link = url,
+            guid = PyRSS2Gen.Guid(url),
+            pubDate = now
+        )
+        
+    
+    rss = PyRSS2Gen.RSS2(
+        title = "CiteWeb citation feed",
+        link = "http://%s/view/%s/" % (request.META["SERVER_NAME"], url_hash),
+        description = "CiteWeb aggregates your ISI Web Of Science citation alerts.",
+
+        lastBuildDate = now,
+
+        items = [ rss_for_paper(paper) for paper in papers ]
+    )
+
+    return rss.to_xml()
     
     
 def index(request, stable = False, url_hash = "", rss = False):
