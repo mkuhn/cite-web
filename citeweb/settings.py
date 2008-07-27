@@ -83,6 +83,7 @@ TEMPLATE_DIRS = (
 INSTALLED_APPS = (
     'citeweb.citeimport',
     'citeweb.citeview',
+    'citeweb.djopenid',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

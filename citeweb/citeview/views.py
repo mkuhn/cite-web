@@ -28,12 +28,12 @@ def cache_url(url):
     if cached_url:
         cached_url = cached_url[0] 
     
-    now = datetime.datetime.utcnow()
+    now = datetime.datetime.now()
     
-    # only load now URLs or those downloaded more than 1 hours ago
-    if not cached_url or cached_url.created < now - datetime.timedelta(hours = 1):
+    # only load now URLs or those downloaded more than 1 hours ago (but only on Fridays)
+    if not cached_url or now.weekday() == 4 and cached_url.created < now - datetime.timedelta(hours = 1):
         
-        print >> sys.stderr, url
+        # print >> sys.stderr, url
         
         r = urllib.urlopen(url)
 
@@ -46,18 +46,27 @@ def cache_url(url):
         for item in soup.findAll("item"):
         
             p_link = str(item.link.string)
-            p_title, _, p_authors, _, p_citation = [ str(t.string) for t in item.description.contents ]
+            
+            # logging.info("|||%s||" % item.description.contents)
+            
+            p_title, p_authors, p_citation = [ str(t).strip() for t in item.description.contents[0].split("&lt;br/&gt;") ]
         
             p = "\t".join((p_link, p_title, p_authors, p_citation))
             papers.append(p)
 
         if not cached_url:
             cached_url = models.CachedURL.objects.create(url = url, title = title, papers = "\n".join(papers), created = now)
+            
+            # logging.info("new cached %s" % str(now))
+            
         else:
             cached_url.url      = url      
             cached_url.title    = title    
             cached_url.papers   = "\n".join(papers)
+
+            # logging.info("prev cached %s" % str(cached_url.created))
             cached_url.created  = now
+            # logging.info("old cached %s" % str(now))
             
             cached_url.save() 
     
@@ -106,31 +115,14 @@ def index(request, stable = False, url_hash = "", rss = False):
 
     rss_url = "rss.xml"
 
-    #TODO
-    # # if we come via a stable URL, get the URL hash from the stored users
-    # if stable:
-    #     url_hash = models.UserPrefs.objects.filter(user_hash, url_hash).get().url_hash
+    # if we come via a stable URL, get the URL hash from the stored users
+    if stable:
+        url_hash = models.UserPrefs.objects.filter(user_hash = url_hash).get().url_hash
 
-    #TODO
-    # user = users.get_current_user()
-    # if user:
-    #     nickname = user.nickname()
-    #     logout_url = users.create_logout_url("/")
-    # 
-    # # if there are no parameters, see if the user is logged in and has an associated URL
-    # if not url_hash:
-    #     userprefs = models.UserPrefs.objects.filter(user = user).get()
-    #     
-    #     if userprefs:
-    #         url_hash = userprefs.url_hash
-    #         rss_url = "/view/stable/%s/rss.xml" % userprefs.user_hash
-        
     # okay, we can't find a URL hash: tell the user to import something
     if not url_hash:
         from citeweb.citeimport import views
         return views.index(request)
-
-
 
     url_list = models.URLList.objects.filter(url_hash = url_hash)[0]
     
@@ -167,7 +159,7 @@ def index(request, stable = False, url_hash = "", rss = False):
 
         papers = []
                 
-        for (paper, citing) in sorted(paper2citing.items()):
+        for (paper, citing) in sorted(paper2citing.items(), cmp = lambda x, y : cmp(x[1], y[1])):
             (wos_url, title, authors, citation) = paper.split("\t")
 
             short_title = re.sub(" ((the|and|or|for|to|in|of|an?|is|it|-+) )+", " ", title)

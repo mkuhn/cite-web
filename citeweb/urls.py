@@ -5,4 +5,7 @@ urlpatterns = patterns('',
     (r'^view/', include('citeweb.citeview.urls')),
 
     (r'^$', 'citeweb.citeview.views.index'),
+
+    (r'^openid/', include('citeweb.djopenid.urls')),
+
 )

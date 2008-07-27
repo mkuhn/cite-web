@@ -1,111 +1,28 @@
-{% extends "base.html" %}
+<html>
+  <head>
+    <title>Python OpenID Example</title>
+  </head>
+  <body>
+    <p>
+    This is a Django package which implements both an OpenID server
+    and an OpenID consumer.  These examples are provided with the
+    OpenID library so you can learn how to use it in your own
+    applications.
+    </p>
 
-{% block title %}CiteWeb: Import URLs{% endblock %}
+    <p>
+    To begin, click one of these links:
+    </p>
 
-{% block head %}
-<!-- Skin CSS file -->
-<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/assets/skins/sam/skin.css">
-<!-- Utility Dependencies -->
-<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"></script> 
-<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/element/element-beta-min.js"></script> 
-<!-- Needed for Menus, Buttons and Overlays used in the Toolbar -->
-<script src="http://yui.yahooapis.com/2.5.2/build/container/container_core-min.js"></script>
-<!-- Source file for Rich Text Editor-->
-<script src="http://yui.yahooapis.com/2.5.2/build/editor/simpleeditor-beta-min.js"></script>
-{% endblock %}
+    <ul>
+      <li><a href="{{ consumer_url }}">Example Consumer (Relying Party)</a></li>
+      <li><a href="{{ server_url }}">Example Server (Identity Provider)</a></li>
+    </ul>
 
-{% block content %}
-
-{% if url_hash %}
-
-<p>The papers you follow have been imported. You have now several options:</p>
-
-<ol>
-   <li>Immediately <a href="../view/{{ url_hash }}">show the citations</a>. You can bookmark this page and add it to your RSS reader. However, when you decide to follow other papers,
-      you will have to change your bookmarks.</li>
-   <li><a href="/import/save/{{ url_hash }}">Save your papers to your Google account</a>. This will give you a link that does not change even when you add other papers.</li>
-</ol>
-
-<p>The following papers have been detected:</p>
-<ul>
-{% for paper_url in paper_urls %}
-   <li>{{ paper_url.paper }} (<a href="{{ paper_url.url }}">RSS</a>)</li>
-{% endfor %}   
-</ul>
-
-{% else %}
-<h2>CiteWeb: Following citations made easy</h2>
-<p>Have you ever waded through citation alert after citation alert, only to find that the same paper is mentioned over and over? If yes, then CiteWeb is for you.</p>
-<p>CiteWeb is a tool that lets you follow citations to papers via <a href="http://isiknowledge.com/">ISI Web of Science</a>. 
-   In contrast to the standard citation alerts, CiteWeb aggregates all citations and organizes them
-   by citing paper: even papers that quote multiple tracked papers appear only once. You can follow the citations on this webpage or via RSS.</p>
-<p>To import the list of tracked papers, please log in at <a href="http://isiknowledge.com/">Web of Science</a> and click on <strong>My Citation Alerts</strong> (top of screen). Then, select all, copy, and paste into the editor field below. (If this fails, you need to view, copy and paste the source of the page.) Once you submit, you can save the list of papers and view the citations.</p>
-{% if login_url %}
-<p><strong>Returning users</strong>: You can <a href="{{ login_url }}">log in to see your citations</a>.
-{% endif %}
-
-<form method="post" action="">
-
-<textarea id="id_url_field" rows="10" cols="100" name="url_field"></textarea>
-<br/>
-<input type="submit" />
-</form>
-
-<script>
-
-(function() {
-    var Dom = YAHOO.util.Dom,
-        Event = YAHOO.util.Event;
-    
-    var myConfig = {
-        height: '200px',
-        width: '530px',
-        dompath: true,
-        focusAtStart: true,
-        handleSubmit: true,
-        toolbar: {
-            titlebar: 'Please paste your citation alerts here',
-            buttons: [
-                { group: 'textstyle', label: 'Font Style',
-                    buttons: [
-                        { type: 'push', label: 'Bold', value: 'bold' },
-                        { type: 'push', label: 'Italic', value: 'italic' },
-                        { type: 'push', label: 'Underline', value: 'underline' },
-                        { type: 'separator' },
-                        { type: 'select', label: 'Arial', value: 'fontname', disabled: true,
-                            menu: [
-                                { text: 'Arial', checked: true },
-                                { text: 'Arial Black' },
-                                { text: 'Comic Sans MS' },
-                                { text: 'Courier New' },
-                                { text: 'Lucida Console' },
-                                { text: 'Tahoma' },
-                                { text: 'Times New Roman' },
-                                { text: 'Trebuchet MS' },
-                                { text: 'Verdana' }
-                            ]
-                        },
-                        { type: 'spin', label: '13', value: 'fontsize', range: [ 9, 75 ], disabled: true },
-                        { type: 'separator' },
-                        { type: 'color', label: 'Font Color', value: 'forecolor', disabled: true },
-                        { type: 'color', label: 'Background Color', value: 'backcolor', disabled: true }
-                    ]
-                }
-            ]
-        }
-    };
-
-    var myEditor = new YAHOO.widget.SimpleEditor('id_url_field', myConfig);
-    myEditor.render();
-
-})();
-</script>
-<p>
-<strong>Disclaimer</strong>: CiteWeb is free of charge. There is no guarantee against lost data or missed citation alerts. CiteWeb does not archive the citation alerts, you can only view what ISI currently provides. I hope CiteWeb works for you and makes your life easier. As ISI may decide tomorrow to implement the same functionality, CiteWeb will not most likely not evolve into something more fancy than it currently is. You can contact me <a href="http://www.mckuhn.de/">via my homepage</a>.
-</p>
-{% endif %}
-
-{{ info }}
-
-{% endblock %}
-
+    <p>
+    <strong>Note:</strong> If you want to test the example consumer
+    using the example server, you must start a separate server process
+    for each application.
+    </p>
+  </body>
+</html>

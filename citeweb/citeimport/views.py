@@ -5,8 +5,6 @@ from django import newforms as forms
 
 from citeweb.citeimport import models
 
-# from google.appengine.api import users
-
 import re
 import hashlib
 
@@ -40,11 +38,6 @@ def index(request):
 
     urls = ()
 
-    #TODO
-    # user = users.get_current_user()
-    # if not user:
-    #     login_url = users.create_login_url("/")
-
     if request.POST:
         
         logging.info(str(request.POST)[:100])
@@ -62,28 +55,5 @@ def index(request):
         for (paper, url) in zip(papers, urls):
             paper_urls.append( { "paper": paper, "url" : url })
 
-    return render_to_response('index.html', locals())
-
-def save(request, url_hash):
-
-    #TODO
-    # user = users.get_current_user()
-    # 
-    # userprefs = models.UserPrefs.objects.filter(user, user).get()
-    # 
-    # if userprefs is None:
-    #     # if this is a new user, generate a hash and store the data
-    #     user_hash = hashlib.sha1("\n".join((str(user), url_hash, str(random.random)))).hexdigest()
-    #     userprefs = models.UserPrefs(user = user, user_hash = user_hash, url_hash = url_hash)
-    # else:
-    #     # if it is old, leace the user hash unchanged and just adapt the url hash
-    #     userprefs.url_hash = url_hash
-    # 
-    # userprefs.save()
-    #     
-    # user_hash = userprefs.user_hash
-    # nickname = user.nickname()
-    # logout_url = users.create_logout_url("/view/stable/%s" % user_hash)
-
-    return render_to_response('save.html', locals())
+    return render_to_response('import.html', locals())
 

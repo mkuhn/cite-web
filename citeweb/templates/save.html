@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<p>The list of papers you follow has been saved to your Google account ({{ nickname }}). You can now bookmark the following stable URL to follow your papers:</p>
+<p>The list of papers you follow has been saved to your OpenID <a href="{{ url }}">{{ url|escape }}</a>. You can now bookmark the following stable URL to follow your papers:</p>
 <p><a href="/view/stable/{{ user_hash }}">http://cite-web.appspot.com/view/stable/{{ user_hash }}</a></p>
 <p>If you want to use an RSS reader to follow the citation, please visit the link above and click on the RSS link.</p>
 
