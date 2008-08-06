@@ -26,7 +26,7 @@
    <li><a href="/openid/{{ url_hash }}">Save your papers</a> with an OpenID [<a href="http://openid.net/" title="OpenID" target="_blank">?</a>]. This will give you a link that does not change even when you add other papers.</li>
 </ol>
  
-<p>The following papers have been detected:</p>
+<p>The following {{ paper_urls|length }} paper{{ paper_urls|pluralize }} ha{{ paper_urls|pluralize:"s,ve" }} been detected:</p>
 <ul>
 {% for paper_url in paper_urls %}
    <li>{{ paper_url.paper }} (<a href="{{ paper_url.url }}">RSS</a>)</li>

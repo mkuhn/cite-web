@@ -1,0 +1,6 @@
+Prerequisites:
+
+Django 0.96
+PyRSS2Gen http://www.dalkescientific.com/Python/PyRSS2Gen.html
+Python OpenID Library >2.x http://openidenabled.com/
+
