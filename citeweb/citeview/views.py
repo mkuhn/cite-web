@@ -23,6 +23,10 @@ import PyRSS2Gen
 
 import logging
 
+url_opener = urllib.FancyURLopener()
+url_opener.version = "http://citeweb.embl.de RSS aggregator"
+
+
 def last_friday( today = datetime.datetime.today() ):
     """Compute last Friday's date 
     >>> last_friday( datetime.date(2008, 8, 8) )
@@ -64,7 +68,7 @@ def cache_url(url):
         
         # print >> sys.stderr, url
         
-        r = urllib.urlopen(url)
+        r = url_opener.open(url)
 
         soup = BeautifulStoneSoup(r, selfClosingTags=['br'])
 
