@@ -9,7 +9,7 @@ from openid.extensions import pape, sreg
 from openid.yadis.constants import YADIS_HEADER_NAME, YADIS_CONTENT_TYPE
 from openid.server.trustroot import RP_RETURN_TO_URL_TYPE
 
-from djopenid import util
+from citeweb.djopenid import util
 
 from django.shortcuts import render_to_response
 
@@ -44,12 +44,12 @@ def getConsumer(request):
     return consumer.Consumer(request.session, getOpenIDStore())
 
 def renderIndexPage(request, url_hash, **template_args):
-    template_args['consumer_url'] = "http://localhost:8000/openid/%s/" % url_hash
+    template_args['consumer_url'] = "http://citeweb.embl.de/openid/%s/" % url_hash
     template_args['pape_policies'] = POLICY_PAIRS
 
     response =  direct_to_template(
         request, 'consumer/index.html', template_args)
-    response[YADIS_HEADER_NAME] = "http://localhost:8000/openid/%s/xrds/" % url_hash
+    response[YADIS_HEADER_NAME] = "http://citeweb.embl.de/openid/%s/xrds/" % url_hash
     return response
 
 def startOpenID(request, url_hash):
@@ -109,8 +109,8 @@ def startOpenID(request, url_hash):
 
         # Compute the trust root and return URL values to build the
         # redirect information.
-        trust_root = "http://localhost:8000/openid/%s/" % url_hash
-        return_to = "http://localhost:8000/openid/%s/finish" % url_hash
+        trust_root = "http://citeweb.embl.de/openid/%s/" % url_hash
+        return_to = "http://citeweb.embl.de/openid/%s/finish" % url_hash
 
         # Send the browser to the server either by sending a redirect
         # URL or by generating a POST form.
@@ -153,7 +153,7 @@ def finishOpenID(request, url_hash):
 
         # Get a response object indicating the result of the OpenID
         # protocol.
-        return_to = "http://localhost:8000/openid/%s/finish" % url_hash
+        return_to = "http://citeweb.embl.de/openid/%s/finish" % url_hash
         response = c.complete(request_args, return_to)
 
         # Get a Simple Registration response object if response
@@ -233,4 +233,4 @@ def rpXRDS(request, url_hash):
     return util.renderXRDS(
         request,
         [RP_RETURN_TO_URL_TYPE],
-        ["http://localhost:8000/openid/%s/finish" % url_hash])
+        ["http://citeweb.embl.de/openid/%s/finish" % url_hash])

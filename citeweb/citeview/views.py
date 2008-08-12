@@ -1,10 +1,11 @@
 # Create your views here.
 
-from django.shortcuts import render_to_response
-from django import newforms as forms
-from django.http import HttpResponse
+if __name__ != "__main__":
+    from django.shortcuts import render_to_response
+    from django import newforms as forms
+    from django.http import HttpResponse
 
-from citeweb.citeimport import models
+    from citeweb.citeimport import models
 
 import urllib
 
@@ -22,6 +23,38 @@ import PyRSS2Gen
 
 import logging
 
+url_opener = urllib.FancyURLopener()
+url_opener.version = "http://citeweb.embl.de RSS aggregator"
+
+
+def last_friday( today = datetime.datetime.today() ):
+    """Compute last Friday's date 
+    >>> last_friday( datetime.date(2008, 8, 8) )
+    datetime.date(2008, 8, 8)
+    >>> last_friday( datetime.date(2008, 8, 9) )
+    datetime.date(2008, 8, 8)
+    >>> last_friday( datetime.date(2008, 8, 10) )
+    datetime.date(2008, 8, 8)
+    >>> last_friday( datetime.date(2008, 8, 11) )
+    datetime.date(2008, 8, 8)
+    >>> last_friday( datetime.date(2008, 8, 12) )
+    datetime.date(2008, 8, 8)
+    >>> last_friday( datetime.date(2008, 8, 13) )
+    datetime.date(2008, 8, 8)
+    >>> last_friday( datetime.date(2008, 8, 14) )
+    datetime.date(2008, 8, 8)
+    >>> last_friday( datetime.date(2008, 8, 15) )
+    datetime.date(2008, 8, 15)
+    """
+    
+    weekday = today.weekday()
+    
+    if weekday >= 4:
+        return today - datetime.timedelta( days = weekday - 4 )
+    else:
+        return today - datetime.timedelta( days = 3 + weekday )
+    
+
 def cache_url(url):
     
     cached_url = models.CachedURL.objects.filter(url = url)
@@ -30,12 +63,12 @@ def cache_url(url):
     
     now = datetime.datetime.now()
     
-    # only load now URLs or those downloaded more than 1 hours ago (but only on Fridays)
-    if not cached_url or now.weekday() == 4 and cached_url.created < now - datetime.timedelta(hours = 1):
+    # only load now URLs or those downloaded more than 1 hours ago (but only on Fridays, and then once on subsequent days)
+    if not cached_url or cached_url.created <= last_friday() and cached_url.created < now - datetime.timedelta(hours = 1):
         
         # print >> sys.stderr, url
         
-        r = urllib.urlopen(url)
+        r = url_opener.open(url)
 
         soup = BeautifulStoneSoup(r, selfClosingTags=['br'])
 
@@ -174,4 +207,12 @@ def index(request, stable = False, url_hash = "", rss = False):
         return HttpResponse(papers_to_rss(request, url_hash, papers), mimetype="application/rss+xml")
     else:    
         return render_to_response('view_index.html', locals())
+
+
+def _test():
+    import doctest
+    doctest.testmod()
+
+if __name__ == "__main__":
+    _test()
 

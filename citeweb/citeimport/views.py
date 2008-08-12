@@ -39,9 +39,7 @@ def index(request):
     urls = ()
 
     if request.POST:
-        
-        # logging.info(str(request.POST)[:100])
-        
+
         (papers, urls) = parse_urls(request.POST["url_field"])
         url_hash = hashlib.sha1("\n".join(urls)).hexdigest()
         
