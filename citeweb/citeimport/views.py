@@ -17,10 +17,11 @@ class ImportForm(forms.Form):
 
 def parse_urls(s):
     s = re.sub(r"\r?\n", " ", s)
-    papers = re.findall(r"viewType=fullRecord.*?>(.*?)</a>", s)
+    papers = re.findall(r"viewType=fullRecord&(?:amp;)UT.*?>([^<>]*?)</a>", s)
     urls = re.findall(r"http://rss.isiknowledge.com/rss\?e=\w*&(?:amp;)?c=\w*", s)
     urls = [ url.replace("&amp;", "&") for url in urls ]
 
+    # logging.info(s)
     # logging.info(str(urls))
     # logging.info("\n".join(papers))
     # logging.info("%d %d" % (len(urls), len(papers)))
@@ -29,8 +30,7 @@ def parse_urls(s):
     #     # logging.debug(s)
     #     pass
 
-    if not papers and len(s.split("\n")) == len(urls):
-        papers = re.findall(r"^(.*?) : http://", s, re.M)
+    assert all( "<" not in s and ">" not in s for s in papers )
 
     return (papers, urls)
 

@@ -198,8 +198,11 @@ def index(request, stable = False, url_hash = "", rss = False):
 
             short_title = re.sub(" ((the|and|or|for|to|in|of|an?|is|it|-+) )+", " ", title)
 
-            search_param = "%s %s" % (authors[:authors.index(",")], short_title)
-            scholar_param = ("allintitle%%3A %s author%%3A%s" % (short_title, authors[:authors.index(",")], )).replace(" ", "+")
+            search_param = "%s %s" % (authors[:authors.index(",")], short_title) if "," in authors else short_title
+            
+            author_param = (" author%%3A%s" % authors[:authors.index(",")]) if "," in authors else ""
+            
+            scholar_param = ("allintitle%%3A %s %s" % (short_title, author_param)).replace(" ", "+")
             papers.append({ "wos_url" : wos_url, "scholar_param" : scholar_param, "search_param" : search_param, "title" : title, "authors" : authors, "citation" : citation, "citing" : citing })
     
     
