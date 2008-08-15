@@ -1,0 +1,5 @@
+User-agent: *
+
+Disallow: /import/
+Disallow: /view/
+Disallow: /openid/
