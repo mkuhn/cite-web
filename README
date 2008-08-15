@@ -1,4 +1,7 @@
-Prerequisites:
+This source code is released under the MIT License. For details,
+see the LICENSE file.
+
+Prerequisites for installation:
 
 Django 0.96
 PyRSS2Gen http://www.dalkescientific.com/Python/PyRSS2Gen.html
