@@ -12,7 +12,7 @@
 
 This week, the papers you follow have been cited by the following papers (<a href="{{ rss_url }}">RSS</a>, <a href="/import/">change papers</a>):
 
-{% regroup papers by citing as paper_list %}
+{% regroup papers|dictsort:"citing" by citing as paper_list %}
 
 {% for citing_paper in paper_list %} 
 <div class="paper">

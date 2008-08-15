@@ -194,6 +194,7 @@ def index(request, stable = False, url_hash = "", rss = False):
                 
         for (paper, citing) in sorted(paper2citing.items(), cmp = lambda x, y : cmp(x[1], y[1])):
             (wos_url, title, authors, citation) = paper.split("\t")
+            citing = sorted(citing)
 
             short_title = re.sub(" ((the|and|or|for|to|in|of|an?|is|it|-+) )+", " ", title)
 
