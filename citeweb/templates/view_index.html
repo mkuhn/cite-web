@@ -17,13 +17,13 @@ This week, the papers you follow have been cited by the following papers (<a hre
 {% for citing_paper in paper_list %} 
 <div class="paper">
    {% for citing in citing_paper.grouper %}
-      {{ citing }}<br/>
+      {{ citing|safe }}<br/>
    {% endfor %}
    {% for paper in citing_paper.list %}
    <div class="citing">
-      <a href="http://scholar.google.com/scholar?q={{ paper.scholar_param }}">{{ paper.title }}</a> <a href="{{ paper.wos_url }}" style="font-size: 50%">[WOS]</a> <a href="http://www.google.com/search?q={{ paper.search_param }}" style="font-size: 50%">[Google]</a><br>
-      <div class="authors">{{ paper.authors }}</div>
-      <div class="citation">{{ paper.citation|lower }}</div>
+      <a href="http://scholar.google.com/scholar?q={{ paper.scholar_param }}">{{ paper.title|safe }}</a> <a href="{{ paper.wos_url }}" style="font-size: 50%">[WOS]</a> <a href="http://www.google.com/search?q={{ paper.search_param }}" style="font-size: 50%">[Google]</a><br>
+      <div class="authors">{{ paper.authors|safe }}</div>
+      <div class="citation">{{ paper.citation|lower|safe }}</div>
    </div>
    {% endfor %}
 </div>

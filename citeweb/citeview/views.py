@@ -170,7 +170,8 @@ def index(request, stable = False, url_hash = "", rss = False):
         urls = url_list.urls.split("\n")
         papers = url_list.papers.split("\n")
         
-        logging.info("%d %d" % (len(urls), len(papers)))
+        # logging.info("%d %d" % (len(urls), len(papers)))
+        assert len(urls) == len(papers)
     
         url2title = {}
         for (url, title) in zip(urls, papers):

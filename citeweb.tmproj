@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>citeweb/templates/view_index.html</string>
+	<string>citeweb/djopenid/views.py</string>
 	<key>documents</key>
 	<array>
 		<dict>
 			<key>filename</key>
 			<string>README</string>
 			<key>lastUsed</key>
-			<date>2008-08-15T09:48:12Z</date>
+			<date>2008-08-15T11:38:04Z</date>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -19,19 +19,19 @@
 					<key>filename</key>
 					<string>citeweb/citeimport/urls.py</string>
 					<key>lastUsed</key>
-					<date>2008-07-07T20:10:23Z</date>
+					<date>2009-01-23T08:59:03Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>citeweb/citeimport/views.py</string>
 					<key>lastUsed</key>
-					<date>2008-08-12T15:44:04Z</date>
+					<date>2008-08-15T16:28:16Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>citeweb/citeimport/models.py</string>
 					<key>lastUsed</key>
-					<date>2008-07-07T20:10:19Z</date>
+					<date>2009-01-23T09:15:25Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -46,13 +46,13 @@
 					<key>filename</key>
 					<string>citeweb/citeview/views.py</string>
 					<key>lastUsed</key>
-					<date>2008-08-15T09:49:46Z</date>
+					<date>2009-01-23T08:56:23Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>citeweb/citeview/urls.py</string>
 					<key>lastUsed</key>
-					<date>2008-07-07T20:31:15Z</date>
+					<date>2008-08-15T11:38:01Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -67,15 +67,13 @@
 					<key>filename</key>
 					<string>citeweb/templates/view_index.html</string>
 					<key>lastUsed</key>
-					<date>2008-08-15T09:49:46Z</date>
-					<key>selected</key>
-					<true/>
+					<date>2008-08-15T11:38:04Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>citeweb/templates/base.html</string>
 					<key>lastUsed</key>
-					<date>2008-08-12T15:27:35Z</date>
+					<date>2008-08-15T11:38:05Z</date>
 				</dict>
 				<dict>
 					<key>children</key>
@@ -84,13 +82,13 @@
 							<key>filename</key>
 							<string>citeweb/templates/consumer/request_form.html</string>
 							<key>lastUsed</key>
-							<date>2008-08-12T15:27:46Z</date>
+							<date>2008-08-15T11:38:05Z</date>
 						</dict>
 						<dict>
 							<key>filename</key>
 							<string>citeweb/templates/consumer/index.html</string>
 							<key>lastUsed</key>
-							<date>2008-08-12T15:33:09Z</date>
+							<date>2008-08-15T11:38:07Z</date>
 						</dict>
 					</array>
 					<key>expanded</key>
@@ -106,7 +104,7 @@
 					<key>filename</key>
 					<string>citeweb/templates/import.html</string>
 					<key>lastUsed</key>
-					<date>2008-08-12T15:30:43Z</date>
+					<date>2008-08-15T11:38:08Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -118,13 +116,13 @@
 			<key>filename</key>
 			<string>citeweb/settings.py</string>
 			<key>lastUsed</key>
-			<date>2008-08-12T16:31:19Z</date>
+			<date>2008-08-15T11:50:47Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>citeweb/urls.py</string>
 			<key>lastUsed</key>
-			<date>2008-07-07T20:31:11Z</date>
+			<date>2008-08-15T11:38:03Z</date>
 		</dict>
 		<dict>
 			<key>children</key>
@@ -133,19 +131,21 @@
 					<key>filename</key>
 					<string>citeweb/djopenid/urls.py</string>
 					<key>lastUsed</key>
-					<date>2008-07-07T20:31:11Z</date>
+					<date>2008-08-15T11:38:03Z</date>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>citeweb/djopenid/views.py</string>
 					<key>lastUsed</key>
-					<date>2008-08-12T15:49:52Z</date>
+					<date>2009-01-23T09:53:01Z</date>
+					<key>selected</key>
+					<true/>
 				</dict>
 				<dict>
 					<key>filename</key>
 					<string>citeweb/djopenid/util.py</string>
 					<key>lastUsed</key>
-					<date>2008-08-15T09:48:18Z</date>
+					<date>2009-01-23T09:53:01Z</date>
 				</dict>
 			</array>
 			<key>expanded</key>
@@ -158,6 +158,48 @@
 	<integer>200</integer>
 	<key>metaData</key>
 	<dict>
+		<key>README</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>citeweb/citeimport/models.py</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>4</integer>
+				<key>line</key>
+				<integer>14</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>citeweb/citeimport/urls.py</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>9</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>citeweb/citeimport/views.py</key>
 		<dict>
 			<key>caret</key>
@@ -165,12 +207,12 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>42</integer>
+				<integer>27</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 		<key>citeweb/citeview/urls.py</key>
 		<dict>
@@ -193,12 +235,12 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>196</integer>
+				<integer>198</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>156</integer>
+			<integer>160</integer>
 		</dict>
 		<key>citeweb/djopenid/urls.py</key>
 		<dict>
@@ -219,14 +261,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>28</integer>
+				<integer>17</integer>
 				<key>line</key>
-				<integer>58</integer>
+				<integer>136</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>7</integer>
+			<integer>85</integer>
 		</dict>
 		<key>citeweb/djopenid/views.py</key>
 		<dict>
@@ -235,26 +277,42 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>150</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>122</integer>
 		</dict>
 		<key>citeweb/settings.py</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>38</integer>
+				<integer>14</integer>
 				<key>line</key>
-				<integer>16</integer>
+				<integer>0</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>7</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>14</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
 		</dict>
 		<key>citeweb/templates/base.html</key>
 		<dict>
@@ -303,30 +361,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>144</integer>
+				<integer>507</integer>
 				<key>line</key>
-				<integer>25</integer>
+				<integer>104</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>60</integer>
-				<key>line</key>
-				<integer>25</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>144</integer>
-				<key>line</key>
-				<integer>25</integer>
-			</dict>
+			<integer>32</integer>
 		</dict>
 		<key>citeweb/templates/view_index.html</key>
 		<dict>
@@ -347,31 +389,41 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>15</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>8</integer>
+				<integer>3</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>9</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>3</integer>
+			</dict>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>citeweb/urls.py</string>
-		<string>citeweb/djopenid/urls.py</string>
-		<string>citeweb/settings.py</string>
-		<string>citeweb/citeview/urls.py</string>
-		<string>citeweb/citeview/views.py</string>
 		<string>citeweb/citeimport/views.py</string>
+		<string>citeweb/settings.py</string>
+		<string>citeweb/citeview/views.py</string>
+		<string>citeweb/citeimport/urls.py</string>
+		<string>citeweb/citeimport/models.py</string>
 		<string>citeweb/djopenid/views.py</string>
 		<string>citeweb/djopenid/util.py</string>
-		<string>citeweb/templates/view_index.html</string>
-		<string>citeweb/templates/consumer/request_form.html</string>
-		<string>citeweb/templates/base.html</string>
-		<string>citeweb/templates/consumer/index.html</string>
-		<string>citeweb/templates/import.html</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<false/>
@@ -417,6 +469,6 @@
 		</dict>
 	</dict>
 	<key>windowFrame</key>
-	<string>{{182, 114}, {1226, 878}}</string>
+	<string>{{70, 29}, {1589, 985}}</string>
 </dict>
 </plist>

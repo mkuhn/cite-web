@@ -147,7 +147,7 @@ def finishOpenID(request, url_hash):
     request_args = util.normalDict(request.GET)
     if request.method == 'POST':
         request_args.update(util.normalDict(request.POST))
-
+        
     if request_args:
         c = getConsumer(request)
 
