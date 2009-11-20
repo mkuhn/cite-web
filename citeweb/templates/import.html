@@ -20,12 +20,18 @@
  
 <p>The papers you follow have been imported. You have now several options:</p>
  
-<ol>
-   <li>Immediately <a href="../view/{{ url_hash }}">show the citations</a>. You can bookmark this page and add it to your RSS reader. However, when you decide to follow other papers,
-      you will have to change your bookmarks.</li>
-   <li><a href="/openid/{{ url_hash }}">Save your papers</a> with an OpenID [<a href="http://openid.net/" title="OpenID" target="_blank">?</a>]. This will give you a link that does not change even when you add other papers.</li>
-</ol>
- 
+<form action="save" method="get" accept-charset="utf-8">
+	<input type="hidden" name="url_hash" value="{{ url_hash }}">
+	<ol>
+	   <li>Immediately <a href="../view/{{ url_hash }}">show the citations</a>. You can bookmark this page and add it to your RSS reader. However, when you decide to follow other papers,
+	      you will have to change your bookmarks.</li>
+	   <li>Save your papers. This will give you a link that does not change even when you add other papers.<br/>
+			Your user key: <input type="text" name="user_hash" value="{{ proposed_user_hash }}"> (either <strong>use this key and save it somewhere</strong>, or paste a key you previously received )<br/>
+			<input type="submit" value="Save! &rarr;">
+		</li>
+	</ol>
+</form>
+
 <p>The following {{ paper_urls|length }} paper{{ paper_urls|pluralize }} ha{{ paper_urls|pluralize:"s,ve" }} been detected:</p>
 <ul>
 {% for paper_url in paper_urls %}
@@ -39,7 +45,10 @@
 <p>CiteWeb is a tool that lets you follow citations to papers via <a href="http://isiknowledge.com/">ISI Web of Science</a>.
    In contrast to the standard citation alerts, CiteWeb aggregates all citations and organizes them
    by citing paper: even papers that quote multiple tracked papers appear only once. You can follow the citations on this webpage or via RSS.</p>
-<p><strong>Returning users</strong>: <a href="/openid/view">Log in with your OpenID</a> to see your saved papers.
+<p><form action="/view/stable/" method="get" accept-charset="utf-8"><strong>Returning users</strong>: please paste your user key to see your saved papers: <input type="text" name="url_hash" value=""> <input type="submit" value="Continue &rarr;"></p>
+<p><em>Note:</em> There used to be a OpenID integration, which turned out to be fragile. If you used OpenID, please look at your old "stable" URL and paste the long string after the /.</p>	
+	
+</form>
 <p><strong>New users</strong>: To import the list of tracked papers, please log in at <a href="http://isiknowledge.com/">Web of Science</a> and click on <strong>My Citation Alerts</strong> (top of screen). Then, select all, copy, and paste into the editor field below. (If this fails, you need to view, copy and paste the source of the page.) Once you submit, you can save the list of papers and view the citations.</p>
 {% if login_url %}
 <p><strong>Returning users</strong>: You can <a href="{{ login_url }}">log in to see your citations</a>.

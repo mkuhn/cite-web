@@ -43,6 +43,7 @@ def index(request):
 
         (papers, urls) = parse_urls(request.POST["url_field"])
         url_hash = hashlib.sha1("\n".join(urls)).hexdigest()
+        proposed_user_hash = hashlib.sha1(url_hash + str(random.random())).hexdigest()
         
         if not models.URLList.objects.filter(url_hash = url_hash):
             url_list = models.URLList.objects.create(url_hash = url_hash, urls = "\n".join(urls), papers = "\n".join(papers))
@@ -54,3 +55,29 @@ def index(request):
 
     return render_to_response('import.html', locals())
 
+def save(request):
+    
+    if request.GET:
+        
+        url_hash = request.GET.get("url_hash")
+        user_hash = request.GET.get("user_hash")
+        
+        if len(user_hash) >= 40:
+            
+            userprefs_l = models.UserPrefs.objects.filter(user_hash = user_hash)
+            
+            if not userprefs_l:
+                # if this is a new user, generate a hash and store the data
+                userprefs = models.UserPrefs(user = user_hash, user_hash = user_hash, url_hash = url_hash)
+            
+            else:
+                # if it is old, leave the user hash unchanged and just adapt the url hash
+                userprefs = userprefs_l[0]
+                userprefs.url_hash = url_hash
+            
+            userprefs.save()
+            
+    return render_to_response('save.html', locals())
+
+            
+        

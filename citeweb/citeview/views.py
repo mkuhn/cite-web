@@ -148,6 +148,10 @@ def index(request, stable = False, url_hash = "", rss = False):
 
     rss_url = "rss.xml"
 
+    if url_hash is None:
+        url_hash = request.GET.get("url_hash")
+            
+
     # if we come via a stable URL, get the URL hash from the stored users
     if stable:
         url_hash = models.UserPrefs.objects.filter(user_hash = url_hash).get().url_hash

@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
 
 urlpatterns = patterns('',
-    (r'^(stable/)?(\w+)/?(rss\.xml)?$', 'citeweb.citeview.views.index'),
+    (r'^(stable/)?(\w{10,})?/?(rss\.xml)?$', 'citeweb.citeview.views.index'),
 )

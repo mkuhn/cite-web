@@ -5,5 +5,4 @@ Prerequisites for installation:
 
 Django 0.96
 PyRSS2Gen http://www.dalkescientific.com/Python/PyRSS2Gen.html
-Python OpenID Library 2.1.1: http://openidenabled.com/python-openid/
 BeautifulSoup: http://www.crummy.com/software/BeautifulSoup/
