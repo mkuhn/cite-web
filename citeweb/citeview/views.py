@@ -126,7 +126,7 @@ def papers_to_rss(request, url_hash, papers):
             title = paper["title"],
             description = html,
             link = url,
-            guid = PyRSS2Gen.Guid(url),
+            guid = PyRSS2Gen.Guid(paper["wos_url"]),
             pubDate = now
         )
         
@@ -197,7 +197,7 @@ def index(request, stable = False, url_hash = "", rss = False):
 
         papers = []
                 
-        for (paper, citing) in sorted(paper2citing.items(), cmp = lambda x, y : cmp(x[1], y[1])):
+        for (paper, citing) in sorted(paper2citing.items(), cmp = lambda x, y : cmp(x[1], y[1]) or cmp(x[0],y[0])):
             (wos_url, title, authors, citation) = paper.split("\t")
             citing = sorted(citing)
 

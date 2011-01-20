@@ -12,12 +12,42 @@ import logging
 import random
 random.seed()
 
+import htmlentitydefs
+
 class ImportForm(forms.Form):
     url_field = forms.CharField(widget=forms.Textarea(attrs={'cols':'100', 'rows':'10', }))
 
+def convert_html_entities(s):
+    matches = re.findall("&#\d+;", s)
+    if len(matches) > 0:
+        hits = set(matches)
+        for hit in hits:
+                name = hit[2:-1]
+                try:
+                        entnum = int(name)
+                        s = s.replace(hit, unichr(entnum))
+                except ValueError:
+                        pass
+
+    matches = re.findall("&\w+;", s)
+    hits = set(matches)
+    amp = "&amp;"
+    if amp in hits:
+        hits.remove(amp)
+    for hit in hits:
+        name = hit[1:-1]
+        if htmlentitydefs.name2codepoint.has_key(name):
+                s = s.replace(hit, unichr(htmlentitydefs.name2codepoint[name]))
+    s = s.replace(amp, "&")
+    return s
+    
 def parse_urls(s):
+    
+    s = s.strip()
     s = re.sub(r"\r?\n", " ", s)
-    papers = [ x for x in re.findall(r"viewType=fullRecord&(?:amp;)UT.*?>([^<>]*?)</a>", s) if x.strip() ]
+    if s.startswith("&lt;"): s = convert_html_entities(s)
+    
+    papers = [ x for x in re.findall(r"viewType=fullRecord&(?:amp;)?UT.*?>([^<>]*?)</a>", s) if x.strip() ]
     urls = re.findall(r"http://rss.isiknowledge.com/rss\?e=\w*&(?:amp;)?c=\w*", s)
     urls = [ url.replace("&amp;", "&") for url in urls ]
 
