@@ -82,7 +82,9 @@ def cache_url(url):
             
             # logging.info("|||%s||" % item.description.contents)
             
-            p_title, p_authors, p_citation = [ str(t).strip() for t in item.description.contents[0].split("&lt;br/&gt;") ]
+            l = [ str(t).strip() for t in item.description.contents[0].split("&lt;br/&gt;") ]
+            if len(l) != 4: continue
+            p_title, p_authors, p_citation = [ s.split(": ", 1)[-1] for s in l[:3] ]
         
             p = "\t".join((p_link, p_title, p_authors, p_citation))
             papers.append(p)
@@ -109,27 +111,36 @@ def cache_url(url):
 def papers_to_rss(request, url_hash, papers):
  
     now = datetime.datetime.now()
+
+    def rss_for_papers(papers):
     
-    def rss_for_paper(paper):
-        
-        paper["citing_list"] = "</li><li>".join(paper["citing"])
+        seen_urls = set()
+        l = []
+
+        for paper in papers:
+
+           paper["citing_list"] = "</li><li>".join(paper["citing"])
          
-        html = """
+           html = """
 <p>%(authors)s<br/>%(citation)s</p>
 <ul><li>%(citing_list)s</li></ul>
 <p>Search: <a href="http://scholar.google.com/scholar?q=%(search_param)s">Google Scholar</a> &ndash; <a href="%(wos_url)s">WOS</a> &ndash; <a href="http://www.google.com/search?q=%(search_param)s">Google</a><br>
 </p>""" % paper
 
-        url = "http://scholar.google.com/scholar?q=%s" % paper["scholar_param"]
+           url = "http://scholar.google.com/scholar?q=%s" % paper["scholar_param"]
         
-        return PyRSS2Gen.RSSItem(
-            title = paper["title"],
-            description = html,
-            link = url,
-            guid = PyRSS2Gen.Guid(paper["wos_url"]),
-            pubDate = now
-        )
-        
+           if paper["wos_url"] in seen_urls: continue
+           seen_urls.add(paper["wos_url"])
+
+           l.append( PyRSS2Gen.RSSItem(
+                title = paper["title"],
+                description = html,
+                link = url,
+                guid = PyRSS2Gen.Guid(paper["wos_url"]),
+                pubDate = now
+           ) )
+
+        return l
     
     rss = PyRSS2Gen.RSS2(
         title = "CiteWeb citation feed",
@@ -138,7 +149,7 @@ def papers_to_rss(request, url_hash, papers):
 
         lastBuildDate = now,
 
-        items = [ rss_for_paper(paper) for paper in papers ]
+        items = rss_for_papers(papers)
     )
 
     return rss.to_xml()
