@@ -3,15 +3,6 @@
 {% block title %}CiteWeb: Import URLs{% endblock %}
  
 {% block head %}
-<!-- Skin CSS file -->
-<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/assets/skins/sam/skin.css">
-<!-- Utility Dependencies -->
-<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
-<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/element/element-beta-min.js"></script>
-<!-- Needed for Menus, Buttons and Overlays used in the Toolbar -->
-<script src="http://yui.yahooapis.com/2.5.2/build/container/container_core-min.js"></script>
-<!-- Source file for Rich Text Editor-->
-<script src="http://yui.yahooapis.com/2.5.2/build/editor/simpleeditor-beta-min.js"></script>
 {% endblock %}
  
 {% block content %}
@@ -49,7 +40,7 @@
 <p><em>Note:</em> There used to be a OpenID integration, which turned out to be fragile. If you used OpenID, please look at your old "stable" URL and paste the long string after the /.</p>	
 	
 </form>
-<p><strong>New users</strong>: To import the list of tracked papers, please log in at <a href="http://isiknowledge.com/">Web of Science</a> and click on <strong>My Citation Alerts</strong> (top of screen). Then, select all, copy, and paste into the editor field below. (If this fails, you need to view, copy and paste the source of the page.) Once you submit, you can save the list of papers and view the citations.</p>
+<p><strong>New users</strong>: To import the list of tracked papers, please log in at <a href="http://isiknowledge.com/">Web of Science</a> and click on <strong>My Citation Alerts</strong> (top of screen). Click right (in most browsers) to select "View Page Source", then copy all of the source HTML and paste it. Once you submit, you can save the list of papers and view the citations.</p>
 {% if login_url %}
 <p><strong>Returning users</strong>: You can <a href="{{ login_url }}">log in to see your citations</a>.
 {% endif %}
@@ -59,57 +50,8 @@
 <textarea id="id_url_field" rows="10" cols="100" name="url_field"></textarea>
 <br/>
 <input type="submit" />
+ 
 </form>
- 
-<script>
- 
-(function() {
-    var Dom = YAHOO.util.Dom,
-        Event = YAHOO.util.Event;
-    
-    var myConfig = {
-        height: '200px',
-        width: '530px',
-        dompath: true,
-        focusAtStart: true,
-        handleSubmit: true,
-        toolbar: {
-            titlebar: 'Please paste your citation alerts here',
-            buttons: [
-                { group: 'textstyle', label: 'Font Style',
-                    buttons: [
-                        { type: 'push', label: 'Bold', value: 'bold' },
-                        { type: 'push', label: 'Italic', value: 'italic' },
-                        { type: 'push', label: 'Underline', value: 'underline' },
-                        { type: 'separator' },
-                        { type: 'select', label: 'Arial', value: 'fontname', disabled: true,
-                            menu: [
-                                { text: 'Arial', checked: true },
-                                { text: 'Arial Black' },
-                                { text: 'Comic Sans MS' },
-                                { text: 'Courier New' },
-                                { text: 'Lucida Console' },
-                                { text: 'Tahoma' },
-                                { text: 'Times New Roman' },
-                                { text: 'Trebuchet MS' },
-                                { text: 'Verdana' }
-                            ]
-                        },
-                        { type: 'spin', label: '13', value: 'fontsize', range: [ 9, 75 ], disabled: true },
-                        { type: 'separator' },
-                        { type: 'color', label: 'Font Color', value: 'forecolor', disabled: true },
-                        { type: 'color', label: 'Background Color', value: 'backcolor', disabled: true }
-                    ]
-                }
-            ]
-        }
-    };
- 
-    var myEditor = new YAHOO.widget.SimpleEditor('id_url_field', myConfig);
-    myEditor.render();
- 
-})();
-</script>
 <p>
 <strong>Disclaimer</strong>: CiteWeb is free of charge. There is no guarantee against lost data or missed citation alerts. CiteWeb does not archive the citation alerts, you can only view what ISI currently provides. I hope CiteWeb works for you and makes your life easier. As ISI may decide tomorrow to implement the same functionality, CiteWeb will not most likely not evolve into something more fancy than it currently is. However, <a href="http://github.com/mkuhn/cite-web/tree/master" title="CiteWeb at GitHub">the source code is available</a>. You can contact me <a href="http://www.mckuhn.de/">via my homepage</a> or by leaving a comment on the <a href="http://blog.mckuhn.de/2008/08/citeweb-following-citations-made-easy.html" title="bioCS: CiteWeb: Following citations made easy">announcement blog post</a>. 
 </p>
