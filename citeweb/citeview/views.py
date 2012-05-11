@@ -82,7 +82,7 @@ def cache_url(url):
             
             # logging.info("|||%s||" % item.description.contents)
             
-            l = [ str(t).strip() for t in item.description.contents[0].split("&lt;br/&gt;") ]
+            l = [ unicode(t).strip() for t in item.description.contents[0].split("&lt;br/&gt;") ]
             if len(l) != 4: continue
             p_title, p_authors, p_citation = [ s.split(": ", 1)[-1] for s in l[:3] ]
         
