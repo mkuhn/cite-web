@@ -193,7 +193,9 @@ def index(request, stable = False, url_hash = "", rss = False):
             url2title[url] = title
     
         paper2citing = defaultdict(list)
-    
+
+        lastFriday = last_friday()
+
         for url in urls:
             cached_url = cache_url(url)
             title = url2title[url]
@@ -204,6 +206,17 @@ def index(request, stable = False, url_hash = "", rss = False):
                 continue 
 
             for paper in cited_papers.split("\n"):
+                
+                key = re.search(r"KeyUT=([^\t ]+)", paper).group(1)
+                
+                db_paper = models.Paper.objects.filter(key = key)
+                
+                if db_paper:
+                    if (lastFriday - db_paper.get().created).days >= 7:
+                        continue
+                else:
+                    models.Paper(key = key).save()
+                
                 paper2citing[paper].append( title )
 
         papers = []
